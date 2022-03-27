@@ -1,0 +1,76 @@
+<div ng-show="session.type === 'candidate' || notFound" class="text-center">
+	<div ng-show="notFound">
+		<h1 class="text-danger">Staffing Recommendation Not Found!</h1>
+	</div>
+	<div ng-hide="notFound">
+		<ng-include src="'partials/notAuthorized.html'"></ng-include>
+	</div>
+</div>
+
+<div ng-hide="session.type === 'candidate' || notFound">
+	<div>
+		<a ng-click="goTo('/staffing/requests')" class="clickable">
+			<i class="glyphicon glyphicon-arrow-left"></i>
+			Return to Staffing Requests List Page
+		</a>
+	</div>
+	
+	<div class="h1 col-md-8 col-md-offset-2">{{title}}</div>
+	
+	<div class="col-md-8 col-md-offset-2">
+		<div class="panel panel-info">
+			<div class="panel-heading">
+				<h3 class="panel-title">
+					Staffing Request
+				</h3>
+			</div>
+			<div class="panel panel-body">
+				<div class="well well-lg" ng-show="session.type === 'admin'">
+					<div class="btn-group">
+						<button class="btn btn-default"
+						        ng-click="staffingRequest.active = !staffingRequest.active">
+							{{staffingRequest.active ? 'Deactivate' : 'Activate' }}
+						</button>
+						<button class="btn btn-default" ng-click="deleteRequest()">
+							Delete
+						</button>
+					</div>
+				</div>
+				
+				<table class="table table-bordered">
+					<tbody>
+					<tr>
+						<td>Created:</td>
+						<td>{{staffingRequest.created | date: short}}</td>
+					</tr>
+					<tr>
+						<td>Company:</td>
+						<td>{{staffingRequest.company.name}}</td>
+					</tr>
+					<tr>
+						<td>Active:</td>
+						<td>{{staffingRequest.active ? 'True': 'False'}}</td>
+					</tr>
+					<tr>
+						<td>Requested By:</td>
+						<td>
+							{{staffingRequest.hiringUser.username}}
+							<a ng-href="mailto:{{staffingRequest.hiringUser.emailAddress}}">
+								({{staffingRequest.hiringUser.emailAddress}})
+							</a>
+						</td>
+					</tr>
+					<tr>
+						<td>Keywords</td>
+						<td>{{staffingRequest.skillKeywords.toString()}}</td>
+					</tr>
+					<tr>
+						<td>Number of Open Positions</td>
+						<td>{{staffingRequest.openPositions}}</td>
+					</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>

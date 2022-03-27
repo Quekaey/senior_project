@@ -1,0 +1,103 @@
+<div ng-show="session.type !== 'candidate'" class="text-center">
+	<ng-include src="'partials/notAuthorized.html'"></ng-include>
+</div>
+
+<div ng-show="session.type === 'candidate'">
+	<div>
+		<a ng-click="cancel()" class="clickable">
+			<i class="glyphicon glyphicon-arrow-left"></i>
+			Return to Job Recommendations List Page
+		</a>
+	</div>
+	
+	<div>
+		<div class="row">
+			<div class="col-md-8 col-md-offset-2">
+				<div class="panel panel-info">
+					<div class="panel-heading">
+						<h1 class="panel-title">
+							{{title}}
+						</h1>
+					</div>
+					<div class="panel panel-body">
+						<div class="well well-lg">
+							<div class="form-group">
+								<label class="control-label">
+									Are you interested in this job recommendation?
+								</label>
+								<div class="btn-group btn-lg">
+									<button class="btn btn-default" ng-click="response = 'yes'" ng-class="{active: response === 'yes'}">
+										YES
+									</button>
+									<button class="btn btn-default" ng-click="response = 'no'" ng-class="{active: response === 'no'}">
+										NO
+									</button>
+									<button class="btn btn-default" ng-click="response = null" ng-class="{active: response !== 'yes' && response !== 'no'}">
+										UNDECIDED
+									</button>
+								</div>
+							</div>
+						</div>
+						
+						<table class="table table-bordered">
+							<tbody>
+							<tr>
+								<td>Company:</td>
+								<td>{{recommendation.company.name}}</td>
+							</tr>
+							<tr>
+								<td>Position:</td>
+								<td>{{recommendation.request.positionName}}</td>
+							</tr>
+							<tr>
+								<td>Created:</td>
+								<td>{{recommendation.created | date: short}}</td>
+							</tr>
+							<tr>
+								<td>Active:</td>
+								<td>
+									{{recommendation.active ? 'True': 'False'}}
+								</td>
+							</tr>
+							<tr>
+								<td>Created By:</td>
+								<td>
+									{{recommendation.staffingUser.firstName + ' ' + recommendation.staffingUser.lastName}}
+									<a ng-href="mailto:{{recommendation.staffingUser.emailAddress}}">
+										({{recommendation.staffingUser.emailAddress}})
+									</a>
+								</td>
+							</tr>
+							<tr>
+								<td>Staffing Request Keywords:</td>
+								<td>
+									{{recommendation.request.skillKeywords.toString()}}
+								</td>
+							</tr>
+							<tr>
+								<td>Staffing Request Open Positions:</td>
+								<td>
+									{{recommendation.request.openPositions}}
+								</td>
+							</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="col-md-8 col-md-offset-2">
+				<hr>
+				
+				<div class="form-actions">
+					<div class="pull-right">
+						<button class="btn btn-lg btn-primary" ng-click="update()">Update</button>
+						<button class="btn btn-lg btn-default" ng-click="cancel()">Cancel</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,108 @@
+<div ng-show="session.type !== 'hiring'">
+	<div class="h1">
+		{{title}}
+	</div>
+	
+	<div class="row">
+		<div class="col-md-8 col-md-offset-2" ng-show="session.type === 'admin'">
+			<div class="form-group">
+				<label class="control-label">
+					Username
+				</label>u
+				<input type="text" class="form-control" name="username" ng-model="candidateUser.username">
+			</div>
+		</div>
+		
+		<div class="col-md-8 col-md-offset-2">
+			<div class="form-group">
+				<label class="control-label">
+					Password
+				</label>
+				<input type="password" class="form-control" name="password" ng-model="candidateUser.password">
+			</div>
+		</div>
+		
+		<div class="col-md-8 col-md-offset-2">
+			<div class="form-group">
+				<label class="control-label">
+					First Name
+				</label>
+				<input type="text" class="form-control" name="firstName" ng-model="candidateUser.firstName">
+			</div>
+		</div>
+		
+		<div class="col-md-8 col-md-offset-2">
+			<div class="form-group">
+				<label class="control-label">
+					Last Name
+				</label>
+				<input type="text" class="form-control" name="lastName" ng-model="candidateUser.lastName">
+			</div>
+		</div>
+		
+		<div class="col-md-8 col-md-offset-2">
+			<div class="form-group">
+				<label class="control-label">
+					Skills
+				</label>
+				<input type="text" class="form-control" name="skills" ng-model="candidateUser.candidateInfo.skills">
+			</div>
+		</div>
+		
+		<div class="col-md-8 col-md-offset-2">
+			<div class="form-group">
+				<label class="control-label">
+					Income
+				</label>
+				<input type="number" class="form-control" name="income" ng-model="candidateUser.candidateInfo.income">
+			</div>
+		</div>
+		
+		<div class="col-md-8 col-md-offset-2">
+			<div class="form-group">
+				<label class="control-label">
+					Location
+				</label>
+				<input type="text" class="form-control" name="location" ng-model="candidateUser.candidateInfo.location">
+			</div>
+		</div>
+		
+		<div class="col-md-8 col-md-offset-2">
+			<div class="form-group">
+				<label class="control-label">
+					Current Status
+				</label>
+				<select class="form-control" name="status" ng-model="candidateUser.candidateInfo.status">
+					<option value="UnemployedJobSearching">Unemployed and searching for a job</option>
+					<option value="UnemployedNotSearching">Unemployed and not searching for a job</option>
+					<option value="EmployedJobSearching">Employed and searching for a new job</option>
+					<option value="EmployedNotInterested">Employed and not searching for a new job</option>
+				</select>
+			</div>
+		</div>
+		
+		<div class="col-md-8 col-md-offset-2">
+			<div class="form-group">
+				<label class="control-label">Upload Resume</label>
+			</div>
+			<div class="form-group">
+				<label class="btn btn-default btn-file">
+					Browse for File <input type="file" style="display: none;">
+				</label>
+			</div>
+		</div>
+	</div>
+	
+	<div class="row">
+		<div class="col-md-8 col-md-offset-2">
+			<hr>
+			
+			<div class="form-actions">
+				<div class="pull-right">
+					<button class="btn btn-lg btn-primary" ng-click="update()">Update</button>
+					<button class="btn btn-lg btn-default" ng-click="cancel()">Cancel</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,48 @@
+<div ng-show="session.type === 'hiring'" class="text-center">
+	<ng-include src="'partials/notAuthorized.html'"></ng-include>
+</div>
+
+<div ng-hide="session.type === 'hiring'">
+	<div class="h1">{{title}}</div>
+	
+	<div class="well well-lg">
+		<div class="form-group" ng-hide="session.type === 'staffing'">
+			<div class="btn-group btn-lg">
+				<button class="btn btn-primary" ng-click="createUser()">Create User</button>
+			</div>
+		</div>
+		
+		
+		<div class="form-group">
+			<label class="control-label">Search</label>
+			<input class="form-control" type="text" ng-model="searchTerm">
+		</div>
+	</div>
+	
+	<table class="table table-bordered table-hover">
+		<thead>
+		<tr>
+			<th>Username</th>
+			<th>First Name</th>
+			<th>Last Name</th>
+			<th>Email Address</th>
+			<th>Hiring Company</th>
+		</tr>
+		</thead>
+		
+		<tbody>
+		<tr ng-repeat="user in users" ng-click="goToUser(user)" class="clickable" ng-hide="user.type ==='candidate'">
+			<td>
+				{{user.username}}
+				<span class="label label-info" ng-show="user.type === 'admin'">Administrator</span>
+				<span class="label label-success" ng-show="user.type === 'staffing'">Staffing</span>
+				<span class="label label-primary" ng-show="user.type === 'hiring'">Hiring</span>
+			</td>
+			<td>{{user.firstName}}</td>
+			<td>{{user.lastName}}</td>
+			<td>{{user.emailAddress}}</td>
+			<td>{{user.hiringCompany.name}}</td>
+		</tr>
+		</tbody>
+	</table>
+</div>

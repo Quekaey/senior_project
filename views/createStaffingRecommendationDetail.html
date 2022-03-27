@@ -1,0 +1,56 @@
+<div ng-show="session.type === 'candidate' || session.type === 'hiring'" class="text-center">
+	<ng-include src="'partials/notAuthorized.html'"></ng-include>
+</div>
+
+<div ng-hide="session.type === 'candidate' || session.type === 'hiring'">
+	<div class="h1">{{title}}</div>
+	
+	<div class="well-lg">
+		<p>Staffing Request Details Go Here</p>
+		<p>Company: {{staffingRequest.company.name}}</p>
+	</div>
+	
+	<div class="well-lg">
+		Search
+		
+		<div class="form-group">
+			<input class="form-control" type="text" ng-model="searchTerm">
+		</div>
+	</div>
+	
+	<table class="table table-bordered table-hover table-checkbox">
+		<thead>
+		<tr>
+			<th></th>
+			<th>First Name</th>
+			<th>Last Name</th>
+			<th>Employment Status</th>
+			<th></th>
+		</tr>
+		</thead>
+		
+		<tbody>
+		<tr ng-repeat="candidate in candidates" class="clickable" ng-click="candidate.selected = !candidate.selected">
+			<td>
+				<input title="isSelected" type="checkbox" ng-model="candidate.selected" ng-click="stopProp($event, candidate)">
+			</td>
+			<td>{{candidate.user.firstName}}</td>
+			<td>{{candidate.user.lastName}}</td>
+			<td>{{candidate.status}}</td>
+			<td align="center">
+				<button ng-click="stopProp($event, candidate, true)" class="btn btn-primary btn-block">
+					View Details
+				</button>
+			</td>
+		</tr>
+		<tr ng-show="candidates.length === 0">
+			<td colspan="3">Could not find any candidates that match the criteria...</td>
+		</tr>
+		</tbody>
+	</table>
+	
+	<div class="form-group pull-right">
+		<button class="btn btn-lg btn-primary" ng-click="create()">Create</button>
+		<button class="btn btn-lg btn-default">Cancel</button>
+	</div>
+</div>

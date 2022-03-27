@@ -1,0 +1,27 @@
+<div ng-hide="session.type === 'admin'" class="text-center">
+	<ng-include src="'partials/notAuthorized.html'"></ng-include>
+</div>
+
+<div ng-show="session.type === 'admin'">
+	<div class="h1">
+		{{title}}
+	</div>
+	
+	<div class="row">
+		<div class="col-md-8 col-md-offset-2">
+			<div class="form-group">
+				<label class="control-label">
+					Company Name
+				</label>
+				<input type="text" class="form-control" name="name" ng-model="name">
+			</div>
+		</div>
+	</div>
+	
+	<div class="form-actions">
+		<div class="pull-right">
+			<button class="btn btn-lg btn-primary" ng-click="create()">Create</button>
+			<button class="btn btn-lg btn-default" ng-click="cancel()">Cancel</button>
+		</div>
+	</div>
+</div>

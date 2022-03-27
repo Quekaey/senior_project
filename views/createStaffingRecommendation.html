@@ -1,0 +1,45 @@
+<div ng-show="session.type === 'candidate' || session.type === 'hiring'" class="text-center">
+	<ng-include src="'partials/notAuthorized.html'"></ng-include>
+</div>
+
+<div ng-hide="session.type === 'candidate' || session.type === 'hiring'">
+	<div class="h1">{{title}}</div>
+	
+	<div class="well-lg">
+		Search
+		
+		<div class="form-group">
+			<input class="form-control" type="text" ng-model="searchTerm">
+		</div>
+	</div>
+	
+	<table class="table table-bordered table-hover">
+		<thead>
+		<tr>
+			<th>Company Name</th>
+			<th>Requested By</th>
+			<th># of Open Positions</th>
+			<th>Skills Looking For</th>
+		</tr>
+		</thead>
+		
+		<tbody>
+		<tr ng-repeat="staffingRequest in staffingRequests" class="clickable" ng-class="{success: staffingRequest.selected}"
+		    ng-click="select(staffingRequest)">
+			<td>{{staffingRequest.company.name}}</td>
+			<td>{{staffingRequest.hiringUser.firstName + staffingRequest.hiringUser.lastName}}</td>
+			<td>{{staffingRequest.openPositions}}</td>
+			<td>{{staffingRequest.skillKeywords.toString()}}</td>
+		</tr>
+		<tr ng-show="staffingRequests.length === 0">
+			<td colspan="3">Could not find any candidates that match the criteria...</td>
+		</tr>
+		</tbody>
+	</table>
+	
+	<div class="form-group pull-right">
+		<button class="btn btn-lg btn-primary" ng-click="create()">Create</button>
+		<button class="btn btn-lg btn-default"
+		        ng-click="goTo(paths.HOME);">Cancel</button>
+	</div>
+</div>

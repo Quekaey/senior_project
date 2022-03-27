@@ -1,0 +1,10 @@
+build: off
+
+artifacts:
+  path: '**\*'
+
+deploy:
+  provider: S3
+  bucket: devry-senior-project
+  set_public: true
+  artifact: '**\*'

@@ -1,0 +1,158 @@
+<div ng-show="session.type === 'candidate'" class="text-center">
+	<ng-include src="'partials/notAuthorized.html'"></ng-include>
+</div>
+
+<div ng-hide="session.type === 'candidate'">
+	<div class="col-md-8 col-md-offset-2">
+		<a ng-click="goTo('/candidates')" class="clickable">
+			<i class="glyphicon glyphicon-arrow-left"></i>
+			Return to Candidates List Page
+		</a>
+	</div>
+	
+	<div class="col-md-8 col-md-offset-2">
+		<div class="form-group" ng-show="session.type === 'staffing' || session.type === 'admin'">
+			<div class="btn-group btn-lg">
+				<button class="btn btn-primary" ng-click="modifyCandidate()">Modify Candidate</button>
+				<button class="btn btn-default" ng-show="session.type === 'admin'">Delete Candidate</button>
+			</div>
+		</div>
+	</div>
+	
+	<div class="col-md-8 col-md-offset-2">
+		<div class="panel panel-info">
+			<div class="panel-heading">
+				<h3 class="panel-title">
+					Candidate Profile
+				</h3>
+			</div>
+			<div class="panel panel-body">
+				<table class="table table-bordered">
+					<tbody>
+					<tr>
+						<td>First Name:</td>
+						<td>{{candidate.user.firstName}}</td>
+					</tr>
+					<tr>
+						<td>Last Name:</td>
+						<td>{{candidate.user.lastName}}</td>
+					</tr>
+					<tr>
+						<td>Skills:</td>
+						<td>{{candidate.skills}}</td>
+					</tr>
+					<tr ng-hide="session.type === 'hiring'">
+						<td>Status:</td>
+						<td>{{candidate.status}}</td>
+					</tr>
+					<tr>
+						<td>Income Requirements</td>
+						<td>${{candidate.income | number}}</td>
+					</tr>
+					<tr>
+						<td>Location</td>
+						<td>{{candidate.location}}</td>
+					</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		
+		<div class="panel panel-info">
+			<div class="panel-heading">
+				<h3 class="panel-title">
+					Notes
+				</h3>
+			</div>
+			<div class="panel panel-body">
+				<div class="form-group">
+					
+					<label for="notes">Add Notes</label>
+					<div class="input-group">
+						<input class="form-control" type="text" id="notes"
+						       ng-model="pendingNote" placeholder="Add notes..." />
+						<span class="input-group-btn">
+                            <button class="btn btn-primary" type="button"
+                                    ng-click="addNote(pendingNote)">
+	                            Submit
+                            </button>
+                        </span>
+					</div>
+				</div>
+				<hr>
+				<div ng-show="candidate.notes.length === 0">
+					<ul>
+						<li>NONE</li>
+					</ul>
+				</div>
+				<div>
+					<ul>
+						<li ng-repeat="note in candidate.notes">
+							<strong>{{note.content}}</strong>
+							written by {{note.author.username}} ({{note.created | date : short}})
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		
+		<div class="panel panel-info" ng-hide="session.type === 'hiring'">
+			<div class="panel-heading">
+				<h3 class="panel-title">
+					Private Staffing Notes
+				</h3>
+			</div>
+			<div class="panel panel-body">
+				<div class="form-group">
+					
+					<label for="privateNotes">Add Private Note</label>
+					<div class="input-group">
+						<input class="form-control" type="text" id="privateNotes"
+						       ng-model="pendingPrivateNote" placeholder="Add notes..." />
+						<span class="input-group-btn">
+                            <button class="btn btn-primary" type="button"
+                                    ng-click="addPrivateNote(pendingPrivateNote)">
+	                            Submit
+                            </button>
+                        </span>
+					</div>
+				</div>
+				<hr>
+				<div ng-show="candidate.privateNotes.length === 0">
+					<ul>
+						<li>NONE</li>
+					</ul>
+				</div>
+				<div>
+					<ul>
+						<li ng-repeat="note in candidate.privateNotes">
+							<strong>{{note.content}}</strong>
+							written by {{note.author.username}} ({{note.created | date : short}})
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+		
+		<div class="panel panel-info" ng-hide="session.type === 'hiring'">
+			<div class="panel-heading">
+				<h3 class="panel-title">
+					Current Job Recommendations
+				</h3>
+			</div>
+			<div class="panel panel-body">
+				<ul>
+					<li ng-repeat="recommendation in staffingRecommendations">
+						<p>{{recommendation.company.name}}</p>
+						<p>{{recommendation.request.skillKeywords.toString()}}</p>
+						<p>Current Response:
+							<strong>
+								{{!recommendation.myCurrentResponse ? 'AWAITING RESPONSE' : recommendation.myCurrentResponse.toUpperCase()}}
+							</strong>
+						</p>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+</div>

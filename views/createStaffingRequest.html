@@ -1,0 +1,63 @@
+<div ng-hide="session.type !== 'candidate'" class="text-center">
+	<ng-include src="'partials/notAuthorized.html'"></ng-include>
+</div>
+
+<div ng-show="session.type !== 'candidate'">
+	<div class="h1">{{title}}</div>
+	
+	<div class="form-group" ng-hide="session.type === 'hiring'">
+		<label for="sel1">Select Hiring Company:</label>
+		<select class="form-control" id="sel1" ng-model="selectedHiringCompany">
+			<option value="">None</option>
+			<option value="{{hiringCompany}}" ng-repeat="hiringCompany in hiringCompanies">
+				{{hiringCompany.name}}
+			</option>
+		</select>
+	</div>
+	
+	<div class="form-group">
+		<label for="skills">Select Skill Keywords (Comma Separated)</label>
+		<textarea class="form-control" id="skills" ng-model="skillKeywords"></textarea>
+	</div>
+	
+	<div class="form-group">
+		<label for="positionName">Name of the Position Hiring For</label>
+		<input type="text" class="form-control" id="positionName" ng-model="positionName" />
+	</div>
+	
+	<div class="form-group">
+		<label for="openPositions"># of Open Positions</label>
+		<input type="text" class="form-control" id="openPositions" ng-model="openPositions" />
+	</div>
+	
+	<div class="form-group">
+		
+		<label for="notes">Add Notes</label>
+		<div class="input-group">
+			<input class="form-control" type="text" id="notes" ng-model="pendingNote" placeholder="Add notes..." />
+			<span class="input-group-btn">
+    <button class="btn btn-primary" type="button" ng-click="addNote(pendingNote)">Add Note</button>
+  </span>
+		</div>
+	
+	</div>
+	
+	<div class="form-group" ng-show="createdNotes.length > 0">
+		<label class="control-label">NOTES</label>
+		<ul ng-repeat="note in createdNotes">
+			<li>
+				<strong>{{note.content}}</strong>
+				by {{note.author.username}}
+			</li>
+		</ul>
+	</div>
+	
+	<hr>
+	
+	<div class="form-actions">
+		<div class="pull-right">
+			<button class="btn btn-lg btn-primary" ng-click="create()" ng-disabled="!selectedHiringCompany  && session.type !== 'hiring'">Create</button>
+			<button class="btn btn-lg btn-default">Cancel</button>
+		</div>
+	</div>
+</div>

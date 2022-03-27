@@ -1,0 +1,61 @@
+<div ng-show="session.type === 'hiring' || session.type === 'candidate'" class="text-center">
+	<ng-include src="'partials/notAuthorized.html'"></ng-include>
+</div>
+
+<div ng-hide="session.type === 'hiring' || session.type === 'candidate'">
+	<div>
+		<a ng-click="goTo('/users')" class="clickable">
+			<i class="glyphicon glyphicon-arrow-left"></i>
+			Return to Users List Page
+		</a>
+	</div>
+	
+	<div class="h1 col-md-8 col-md-offset-2">{{title}}</div>
+	
+	<div class="h1 col-md-8 col-md-offset-2">
+		<div class="form-group" ng-show="session.type === 'admin'">
+			<div class="btn-group btn-lg">
+				<button class="btn btn-primary" ng-click="modifyUser()">Modify User</button>
+				<button class="btn btn-default" ng-show="session.type === 'admin'">Delete User</button>
+			</div>
+		</div>
+	</div>
+	
+	
+	<div class="col-md-8 col-md-offset-2">
+		<div class="panel panel-info">
+			<div class="panel-heading">
+				<h3 class="panel-title">
+					User Profile
+				</h3>
+			</div>
+			<div class="panel panel-body">
+				<table class="table table-bordered">
+					<tbody>
+					<tr>
+						<td>Username:</td>
+						<td>{{user.username}}</td>
+					</tr>
+					<tr>
+						<td>Name:</td>
+						<td>{{user.firstName + ' ' + user.lastName}}</td>
+					</tr>
+					<tr>
+						<td>Type:</td>
+						<td>{{user.type}}</td>
+					</tr>
+					<tr>
+						<td>Email Address:</td>
+						<td>{{user.emailAddress}}</td>
+					</tr>
+					<tr ng-if="user.hiringCompany">
+						<td>Hiring Company:</td>
+						<td>{{user.hiringCompany.name}}</td>
+					</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+

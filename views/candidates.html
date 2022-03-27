@@ -1,0 +1,68 @@
+<div ng-show="session.type === 'candidate'" class="text-center">
+	<ng-include src="'partials/notAuthorized.html'"></ng-include>
+</div>
+
+<div ng-hide="session.type === 'candidate'">
+	<div class="h1">{{title}}</div>
+	
+	<div class="well well-lg">
+		<div class="form-group" ng-hide="session.type === 'hiring'">
+			<div class="btn-group btn-lg">
+				<button class="btn btn-primary" ng-click="createCandidate()">Create Candidate</button>
+			</div>
+		</div>
+		
+		<div class="btn-group btn-lg" ng-init="search = 'skills'">
+			<button class="btn btn-default" ng-click="search = 'skills'; resetCandidates(); searchTerm = '';">Skills</button>
+			<button class="btn btn-default" ng-click="search = 'location'; resetCandidates(); searchTerm = '';">Location</button>
+			<button class="btn btn-default" ng-click="search = 'salary'; resetCandidates(); searchTerm = '';">Salary</button>
+		</div>
+		<br/>
+		
+		<div class="form-group" ng-show="search === 'skills'">
+			<label class="control-label">Search by Skills</label>
+			<input class="form-control" type="text" ng-model="searchTerm" ng-change="filterSkills(searchTerm)">
+		</div>
+		
+		<div class="form-group" ng-show="search === 'location'">
+			<label class="control-label">Search by Location</label>
+			<input class="form-control" type="text" ng-model="searchTerm" ng-change="filterLocation(searchTerm)">
+		</div>
+		
+		<div class="form-group" ng-show="search === 'salary'">
+			<label class="control-label">Minimum Salary</label>
+			<input class="form-control" type="number" ng-model="minSalary" ng-change="filterSalary(minSalary, maxSalary)">
+			<label class="control-label">Maximum Salary</label>
+			<input class="form-control" type="number" ng-model="maxSalary" ng-change="filterSalary(minSalary, maxSalary)">
+		</div>
+	</div>
+	
+	<table class="table table-bordered table-hover">
+		<thead>
+		<tr>
+			<th>First Name</th>
+			<th>Last Name</th>
+			<th>Employment Skills</th>
+			<th>Income Request</th>
+			<th>Location</th>
+			<th>Employment Status</th>
+		</tr>
+		</thead>
+		
+		<tbody>
+		<tr ng-repeat="candidate in candidates" ng-click="goToCandidate(candidate)" class="clickable">
+			<td>{{candidate.user.firstName}}</td>
+			<td>{{candidate.user.lastName}}</td>
+			<td>{{candidate.skills}}</td>
+			<td>${{candidate.income | number}}</td>
+			<td>{{candidate.location}}</td>
+			<td>{{candidate.status}}</td>
+		</tr>
+		<tr ng-show="candidates.length === 0">
+			<td colspan="6" >
+				No Results....
+			</td>
+		</tr>
+		</tbody>
+	</table>
+</div>

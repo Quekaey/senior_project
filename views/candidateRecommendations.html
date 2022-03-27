@@ -1,0 +1,38 @@
+<div ng-show="session.type !== 'candidate'" class="text-center">
+	<ng-include src="'partials/notAuthorized.html'"></ng-include>
+</div>
+
+<div ng-show="session.type === 'candidate'">
+	<div class="h1">{{title}}</div>
+	
+	<table class="table table-bordered table-hover">
+		<thead>
+		<tr>
+			<th>Created</th>
+			<th>Company</th>
+			<th>Position</th>
+			<th>Keywords</th>
+			<th>Response</th>
+			<th>Point of Contact</th>
+		</tr>
+		</thead>
+		
+		<tbody>
+		<tr ng-repeat="recommendation in candidateRecommendations" ng-click="seeDetails(recommendation)"
+		    class="clickable" >
+			<td>{{recommendation.created | date : short}}</td>
+			<td>{{recommendation.company.name}}</td>
+			<td>{{recommendation.request.positionName}}</td>
+			<td>{{recommendation.request.skillKeywords.toString()}}</td>
+			<td>
+				<span class="label" ng-class="{'label-success': recommendation.getCandidateStatusById(session.candidateInfo.id) === 'yes',
+				'label-danger': recommendation.getCandidateStatusById(session.candidateInfo.id) === 'no',
+				'label-warning': recommendation.getCandidateStatusById(session.candidateInfo.id) !== 'yes' && recommendation.getCandidateStatusById(session.candidateInfo.id) !== 'no'}">
+					{{recommendation.getCandidateStatusById(session.candidateInfo.id).toUpperCase() || 'AWAITING RESPONSE'}}
+				</span>
+			</td>
+			<td>{{recommendation.staffingUser.username}} ({{recommendation.staffingUser.emailAddress}})</td>
+		</tr>
+		</tbody>
+	</table>
+</div>

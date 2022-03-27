@@ -1,0 +1,69 @@
+<div ng-hide="!modifyUser || (session.type === 'admin' && modifyUser)" class="text-center">
+	<ng-include src="'partials/notAuthorized.html'"></ng-include>
+</div>
+
+<div ng-show="!modifyUser || (session.type === 'admin' && modifyUser)">
+	<div class="h1">
+		{{title}}
+	</div>
+	
+	<div class="row">
+		<div class="col-md-8 col-md-offset-2" ng-show="session.type === 'admin'">
+			<div class="form-group">
+				<label class="control-label">
+					Username
+				</label>
+				<input type="text" class="form-control" name="email" ng-model="user.username">
+			</div>
+		</div>
+		
+		<div class="col-md-8 col-md-offset-2">
+			<div class="form-group">
+				<label class="control-label">
+					Email Address
+				</label>
+				<input type="text" class="form-control" name="email" ng-model="user.emailAddress">
+			</div>
+		</div>
+		
+		<div class="col-md-8 col-md-offset-2">
+			<div class="form-group">
+				<label class="control-label">
+					Password
+				</label>
+				<input type="password" class="form-control" name="password" ng-model="user.password">
+			</div>
+		</div>
+		
+		<div class="col-md-8 col-md-offset-2">
+			<div class="form-group">
+				<label class="control-label">
+					First Name
+				</label>
+				<input type="text" class="form-control" name="firstName" ng-model="user.firstName">
+			</div>
+		</div>
+		
+		<div class="col-md-8 col-md-offset-2">
+			<div class="form-group">
+				<label class="control-label">
+					Last Name
+				</label>
+				<input type="text" class="form-control" name="lastName" ng-model="user.lastName">
+			</div>
+		</div>
+	</div>
+	
+	<div class="row">
+		<div class="col-md-8 col-md-offset-2">
+			<hr>
+			
+			<div class="form-actions">
+				<div class="pull-right">
+					<button class="btn btn-lg btn-primary" ng-click="update()">Update</button>
+					<button class="btn btn-lg btn-default" ng-click="cancel()">Cancel</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

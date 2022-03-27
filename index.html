@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Title</title>
+	
+	<script   src="https://code.jquery.com/jquery-3.1.1.min.js"
+	          integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+	          crossorigin="anonymous"></script>
+	
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+	      integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+	
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"
+	        integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous">
+	</script>
+	
+	<link rel="stylesheet" type="text/css" href="style.css">
+	
+	<script src="lib/angular/angular.min.js"></script>
+	<script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-route.js"></script>
+	<script src="app.js"></script>
+	
+	<!-- DATA -->
+	<script src="data/candidates.constant.js"></script>
+	<script src="data/hiringCompanies.constant.js"></script>
+	<script src="data/staffingRecommendations.constant.js"></script>
+	<script src="data/staffingRequests.constant.js"></script>
+	<script src="data/users.constant.js"></script>
+	
+	<!-- SERVICES -->
+	<script src="services/authentication.service.js"></script>
+	<script src="services/candidates.service.js"></script>
+	<script src="services/candidateUser.service.js"></script>
+	<script src="services/hiringCompanies.service.js"></script>
+	<script src="services/users.service.js"></script>
+	<!--<script src="services/ROUTES.constant.js"></script>-->
+	<script src="services/session.service.js"></script>
+	<script src="services/staffingRecommendations.service.js"></script>
+	<script src="services/staffingRequests.service.js"></script>
+	
+	<!-- CONTROLLERS -->
+	<script src="controllers/candidates.controller.js"></script>
+	<script src="controllers/candidate.controller.js"></script>
+	<script src="controllers/candidateCreate.controller.js"></script>
+	<script src="controllers/candidateProfile.controller.js"></script>
+	<script src="controllers/candidateModify.controller.js"></script>
+	<script src="controllers/candidateRecommendations.controller.js"></script>
+	<script src="controllers/candidateRecommendationDetail.controller.js"></script>
+	<script src="controllers/createStaffingRecommendation.controller.js"></script>
+	<script src="controllers/createStaffingRecommendationDetail.controller.js"></script>
+	<script src="controllers/createStaffingRequest.controller.js"></script>
+	<script src="controllers/createUser.controller.js"></script>
+	<script src="controllers/dashboard.controller.js"></script>
+	<script src="controllers/hiringCompanies.controller.js"></script>
+	<script src="controllers/hiringCompanyCreate.controller.js"></script>
+	<script src="controllers/hiringCompany.controller.js"></script>
+	<script src="controllers/hiringCompanyModify.controller.js"></script>
+	<script src="controllers/login.controller.js"></script>
+	<script src="controllers/navigation.controller.js"></script>
+	<script src="controllers/staffingRecommendation.controller.js"></script>
+	<script src="controllers/staffingRecommendations.controller.js"></script>
+	<script src="controllers/staffingRequest.controller.js"></script>
+	<script src="controllers/staffingRequests.controller.js"></script>
+	<script src="controllers/updateProfile.controller.js"></script>
+	<script src="controllers/users.controller.js"></script>
+	<script src="controllers/user.controller.js"></script>
+	<script src="controllers/userModify.controller.js"></script>
+	<script src="controllers/userSession.controller.js"></script>
+
+</head>
+<body ng-app="tps">
+<div class="container">
+	<div ng-controller="NavigationController">
+		<nav class="navbar navbar-default">
+			<div class="container-fluid">
+				<!-- Brand and toggle get grouped for better mobile display -->
+				<div class="navbar-header">
+					<button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+					        data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+						<span class="sr-only">Toggle navigation</span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+						<span class="icon-bar"></span>
+					</button>
+					<a class="navbar-brand">TPS App</a>
+				</div>
+				
+				<!-- Collect the nav links, forms, and other content for toggling -->
+				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+					<ul class="nav navbar-nav">
+						<li class="clickable" ng-class="{active: pathIsActive(paths.HOME)}">
+							<a ng-click="goTo(paths.HOME)">
+								Home <span class="sr-only">(current)</span>
+							</a>
+						</li>
+						<li ng-class="{active: pathIsActive(paths.CANDIDATE_UPDATE_INFO)}" ng-show="session.type === 'candidate'">
+							<a ng-click="goTo(paths.CANDIDATE_UPDATE_INFO)" class="clickable">Update Information</a>
+						</li>
+						<li ng-class="{active: pathIsActive(paths.CANDIDATE_RECOMMENDATIONS)}" ng-show="session.type === 'candidate'">
+							<a ng-click="goTo(paths.CANDIDATE_RECOMMENDATIONS)" class="clickable">Job Recommendations</a>
+						</li>
+						<li ng-class="{active: pathIsActive(paths.CANDIDATES_LIST)}" ng-hide="session.type === 'candidate'">
+							<a ng-click="goTo(paths.CANDIDATES_LIST)" class="clickable">Candidates</a>
+						</li>
+						<li class="dropdown" ng-hide="session.type === 'hiring' || session.type === 'candidate'"
+						    ng-class="{active: pathIsActive(paths.USER_LIST) || pathIsActive(paths.HIRING_COMPANIES_LIST)}">
+							<a class="dropdown-toggle" data-toggle="dropdown" role="button"
+							   aria-haspopup="true" aria-expanded="false">Administration <span class="caret"></span></a>
+							<ul class="dropdown-menu">
+								<li><a ng-click="goTo(paths.HIRING_COMPANIES_LIST)" class="clickable">Hiring Companies</a></li>
+								<li><a ng-click="goTo(paths.USER_LIST)" class="clickable">Users</a></li>
+								<li ng-show="session.type === 'admin'"><a ng-click="goTo(paths.USER_SESSIONS)" class="clickable">Current User Sessions</a></li>
+							</ul>
+						</li>
+						<li class="dropdown" ng-hide="session.type === 'candidate'">
+							<a class="dropdown-toggle" data-toggle="dropdown" role="button"
+							   aria-haspopup="true" aria-expanded="false">Staffing Requests <span class="caret"></span></a>
+							<ul class="dropdown-menu">
+								<li><a ng-click="goTo(paths.STAFFING_REQUESTS_LIST)" class="clickable">View All</a></li>
+								<li><a ng-click="goTo(paths.STAFFING_REQUESTS_CREATE)" class="clickable">Create Staffing Request</a></li>
+							</ul>
+						</li>
+						<li class="dropdown" ng-hide="session.type === 'candidate' || session.type === 'hiring'">
+							<a class="dropdown-toggle" data-toggle="dropdown" role="button"
+							   aria-haspopup="true" aria-expanded="false">Staffing Recommendations <span class="caret"></span></a>
+							<ul class="dropdown-menu">
+								<li><a ng-click="goTo(paths.STAFFING_RECOMMENDATIONS_LIST)" class="clickable">View All</a></li>
+								<li><a ng-click="goTo(paths.STAFFING_RECOMMENDATIONS_CREATE_LIST)" class="clickable">Create Staffing Recommendation</a></li>
+							</ul>
+						</li>
+						<li ng-class="{active: pathIsActive(paths.STAFFING_RECOMMENDATIONS_LIST)}" ng-show="session.type === 'hiring'">
+							<a ng-click="goTo(paths.STAFFING_RECOMMENDATIONS_LIST)" class="clickable">Staffing Recommendations</a>
+						</li>
+					</ul>
+					<ul class="nav navbar-nav navbar-right">
+						<li class="dropdown" ng-class="{active: pathIsActive(paths.PROFILE)}">
+							<a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+							   aria-expanded="false">
+								<i class="glyphicon glyphicon-user"></i>
+								{{session.username}}
+								<i class="glyphicon glyphicon-check text-success" ng-show="session.active"></i>
+								<i class="glyphicon glyphicon-remove-circle text-danger" ng-show="!session.active"></i>
+								<span class="caret"></span>
+							</a>
+							<ul class="dropdown-menu" ng-if="!session.active">
+								<li>
+									<a>
+										Status: Not Logged In
+									</a>
+								</li>
+							</ul>
+							<ul class="dropdown-menu" ng-if="session.active">
+								<li class="clickable" ng-hide="session.type === 'candidate'" ng-class="{active: pathIsActive(paths.PROFILE)}"
+								    ng-click="goTo(paths.PROFILE)"><a>Profile</a></li>
+								<li role="separator" class="divider" ng-hide="session.type === 'candidate'"></li>
+								<li class="clickable" ng-click="loginAsAdmin()" ng-hide="session.type === 'admin'">
+									<a>Switch to Admin User Session</a>
+								</li>
+								<li ng-show="session.type === 'admin'">
+									<a><strong class="text-success">Currently Admin User Session</strong></a>
+								</li>
+								<li class="clickable" ng-click="loginAsStaffUser()" ng-hide="session.type === 'staffing'">
+									<a>Switch to Staff User Session</a>
+								</li>
+								<li ng-show="session.type === 'staffing'">
+									<a><strong class="text-success">Currently Staff User Session</strong></a>
+								</li>
+								<li class="clickable" ng-click="loginAsHiringUser()" ng-hide="session.type === 'hiring'">
+									<a>Switch to Hiring User Session</a>
+								</li>
+								<li ng-show="session.type === 'hiring'">
+									<a><strong class="text-success">Currently Hiring User Session</strong></a>
+								</li>
+								<li class="clickable" ng-click="loginAsCandidateUser()" ng-hide="session.type === 'candidate'">
+									<a>Switch to Candidate User Session</a>
+								</li>
+								<li ng-show="session.type === 'candidate'">
+									<a><strong class="text-success">Currently Candidate User Session</strong></a>
+								</li>
+								<li role="separator" class="divider"></li>
+								<li class="clickable">
+									<a ng-click="logout()">
+										<i class="glyphicon glyphicon-log-out"></i>
+										Logout
+									</a>
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</div><!-- /.navbar-collapse -->
+			</div><!-- /.container-fluid -->
+		</nav>
+	</div>
+</div>
+
+<div ng-view class="container"></div>
+</body>
+</html>

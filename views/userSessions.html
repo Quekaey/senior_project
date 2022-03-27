@@ -1,0 +1,46 @@
+<div ng-show="session.type !== 'admin'" class="text-center">
+	<ng-include src="'partials/notAuthorized.html'"></ng-include>
+</div>
+
+<div ng-show="session.type === 'admin'">
+	<div class="row">
+		<div class="col-md-10 col-md-offset-1">
+			<div class="h1">{{title}}</div>
+			
+			<table class="table table-bordered table-hover table-striped">
+				<thead>
+				<tr>
+					<th>Username</th>
+					<th>User Type</th>
+					<th>Email Address</th>
+					<th>Hiring Company</th>
+					<th>Suspend</th>
+				</tr>
+				</thead>
+				<tbody>
+				<tr ng-repeat="userSession in sessions">
+					<td ng-class>{{userSession.username}}</td>
+					<td class="text-center">
+						<span class="label label-info" ng-show="userSession.type === 'admin'" style="font-size: 14px;">Administrator</span>
+						<span class="label label-success" ng-show="userSession.type === 'staffing'" style="font-size: 14px;">Staffing</span>
+						<span class="label label-primary" ng-show="userSession.type === 'hiring'" style="font-size: 14px;">Hiring</span>
+						<span class="label label-danger" ng-show="userSession.type === 'candidate'" style="font-size: 14px;">Candidate</span>
+					</td>
+					<td>{{userSession.emailAddress}}</td>
+					<td>{{userSession.hiringCompany.name || 'NONE'}}</td>
+					<td>
+						<button class="btn btn-primary btn-sm btn-block" ng-click="suspend(userSession)">
+							Suspend Session
+						</button>
+					</td>
+				</tr>
+				<tr ng-show="sessions.length === 0">
+					<td colspan="4">
+						No current user sessions....
+					</td>
+				</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>

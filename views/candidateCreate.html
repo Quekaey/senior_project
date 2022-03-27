@@ -1,0 +1,83 @@
+<div ng-show="session.type === 'candidate' || session.type === 'hiring'" class="text-center">
+	<ng-include src="'partials/notAuthorized.html'"></ng-include>
+</div>
+
+<div ng-hide="session.type === 'candidate' || session.type === 'hiring'">
+	<div class="h1">
+		{{title}}
+	</div>
+	
+	<div class="row">
+		<div class="col-md-8 col-md-offset-2">
+			<div class="form-group">
+				<label class="control-label">
+					Username
+				</label>
+				<input type="text" class="form-control" name="username" ng-model="username">
+			</div>
+		</div>
+		
+		<div class="col-md-8 col-md-offset-2">
+			<div class="form-group">
+				<label class="control-label">
+					Password
+				</label>
+				<input type="password" class="form-control" name="password" ng-model="password">
+			</div>
+		</div>
+		
+		<div class="col-md-8 col-md-offset-2">
+			<div class="form-group">
+				<label class="control-label">
+					First Name
+				</label>
+				<input type="text" class="form-control" name="firstName" ng-model="firstName">
+			</div>
+		</div>
+		
+		<div class="col-md-8 col-md-offset-2">
+			<div class="form-group">
+				<label class="control-label">
+					Last Name
+				</label>
+				<input type="text" class="form-control" name="lastName" ng-model="lastName">
+			</div>
+		</div>
+		
+		<div class="col-md-8 col-md-offset-2">
+			<div class="form-group">
+				<label class="control-label">
+					Skills
+				</label>
+				<input type="text" class="form-control" name="skills" ng-model="skills">
+			</div>
+		</div>
+		
+		<div class="col-md-8 col-md-offset-2">
+			<div class="form-group">
+				<label class="control-label">
+					Current Status
+				</label>
+				<select class="form-control" name="status" ng-model="status">
+					<option value="UnemployedJobSearching">Unemployed and searching for a job</option>
+					<option value="UnemployedNotSearching">Unemployed and not searching for a job</option>
+					<option value="EmployedJobSearching">Employed and searching for a new job</option>
+					<option value="EmployedNotInterested">Employed and not searching for a new job</option>
+				</select>
+			</div>
+		</div>
+	</div>
+	
+	<div class="row">
+		<div class="col-md-8 col-md-offset-2">
+			<hr>
+			
+			<div class="form-actions">
+				<div class="pull-right">
+					<button class="btn btn-lg btn-primary" ng-click="create()">Create</button>
+					<button class="btn btn-lg btn-default" ng-click="cancel()">Cancel</button>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

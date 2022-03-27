@@ -1,0 +1,49 @@
+<div ng-hide="session.type !== 'candidate'" class="text-center">
+	<ng-include src="'partials/notAuthorized.html'"></ng-include>
+</div>
+
+<div ng-show="session.type !== 'candidate'">
+	<div class="h1">{{title}}</div>
+	
+	<div class="well-lg">
+		Search
+		
+		<div class="form-group">
+			<input class="form-control" type="text" ng-model="searchTerm">
+		</div>
+	</div>
+	
+	<table class="table table-bordered table-hover">
+		<thead>
+		<tr>
+			<th>Created</th>
+			<th>Status</th>
+			<th>Company</th>
+			<th>RequestId</th>
+			<th>Created By</th>
+			<th>Number of Candidates</th>
+		</tr>
+		</thead>
+		
+		<tbody>
+		<tr ng-if="staffingRecommendations.length === 0">
+			<td colspan="6">No staffing recommendations have been created yet...</td>
+		</tr>
+		<tr ng-repeat="recommendation in staffingRecommendations" ng-click="goTo('/staffing/recommendation/' + recommendation.id)"
+		    class="clickable" ng-show="session.type === 'hiring'
+		                                    ? recommendation.company.id.toString() === session.hiringCompany.id.toString()
+		                                    : true">
+			<td>{{recommendation.created | date : short}}</td>
+			<td>
+				<span class="label" ng-class="{'label-success': recommendation.active, 'label-danger': !recommendation.active}">
+					{{recommendation.active ? 'Active' : 'Inactive'}}
+				</span>
+			</td>
+			<td>{{recommendation.company.name}}</td>
+			<td>{{recommendation.request.id}}</td>
+			<td>{{recommendation.staffingUser.username}}</td>
+			<td><span class="pull-right">{{recommendation.candidates.length | number}}</span></td>
+		</tr>
+		</tbody>
+	</table>
+</div>

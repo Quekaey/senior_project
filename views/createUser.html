@@ -1,0 +1,90 @@
+<div ng-hide="session.type === 'admin'" class="text-center">
+	<ng-include src="'partials/notAuthorized.html'"></ng-include>
+</div>
+
+<div ng-show="session.type === 'admin'">
+	<div class="h1">
+		{{title}}
+	</div>
+	
+	<div class="row">
+		<div class="col-md-8 col-md-offset-2">
+			<div class="form-group">
+				<label class="control-label">
+					Username
+				</label>
+				<input type="text" class="form-control" name="username" ng-model="username">
+			</div>
+		</div>
+		
+		<div class="col-md-8 col-md-offset-2">
+			<div class="form-group">
+				<label class="control-label">
+					First Name
+				</label>
+				<input type="text" class="form-control" name="firstName" ng-model="firstName">
+			</div>
+		</div>
+		
+		<div class="col-md-8 col-md-offset-2">
+			<div class="form-group">
+				<label class="control-label">
+					Last Name
+				</label>
+				<input type="text" class="form-control" name="lastName" ng-model="lastName">
+			</div>
+		</div>
+		
+		<div class="col-md-8 col-md-offset-2">
+			<div class="form-group">
+				<label class="control-label">
+					User Type
+				</label>
+				<select class="form-control" name="userType" ng-model="userType">
+					<option value="admin">Administrator</option>
+					<option value="staffing">Staffing</option>
+					<option value="hiring">Hiring</option>
+				</select>
+			</div>
+		</div>
+		
+		<div class="col-md-8 col-md-offset-2" ng-if="userType === 'hiring'">
+			<div class="form-group">
+				<label class="control-label">
+					Hiring Company
+				</label>
+				<select title="hiringCompanySelect" class="form-control" ng-model="hiringCompany" ng-change="assignHiringCompany(hiringCompany)"
+				        ng-options="company as company.name for company in hiringCompanies">
+					<option></option>
+				</select>
+			</div>
+		</div>
+		
+		<div class="col-md-8 col-md-offset-2">
+			<div class="form-group">
+				<label class="control-label">
+					Email Address
+				</label>
+				<input type="text" class="form-control" name="emailAddress" ng-model="emailAddress">
+			</div>
+		</div>
+		
+		<div class="col-md-8 col-md-offset-2">
+			<div class="form-group">
+				<label class="control-label">
+					Password
+				</label>
+				<input type="password" class="form-control" name="password" ng-model="password">
+			</div>
+		</div>
+	</div>
+	
+	<hr>
+	
+	<div class="form-actions">
+		<div class="pull-right">
+			<button class="btn btn-lg btn-primary" ng-click="create()">Create</button>
+			<button class="btn btn-lg btn-default">Cancel</button>
+		</div>
+	</div>
+</div>
